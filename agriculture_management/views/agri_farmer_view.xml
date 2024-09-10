@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_res_partner_kanban" model="ir.ui.view">
+            <field name="name">res.partner.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="inside">
+                    <field name="name" />
+                    <field name="city" />
+                    <field name="country_id" />
+                    <field name="avatar_128" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//button[@name='schedule_meeting']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_opportunity']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_sale_order']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_partner_invoices']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath> -->
+                <xpath expr="//button[@class='oe_stat_button' and @name='action_view_sale_order']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                    <xpath expr="//button[@class='oe_stat_button' and @icon='fa-credit-card']" position="attributes">
+                        <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
+                    </xpath>
+                    <xpath expr="//button[@class='oe_stat_button' and @name='action_view_partner_invoices']" position="attributes">
+                        <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
+                    </xpath>
+                    <xpath expr="//button[@class='oe_stat_button' and @name='684']" position="attributes">
+                        <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
+                    </xpath>
+                    <xpath expr="//button[@class='oe_stat_button' and @icon='fa-truck']" position="attributes">
+                        <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
+                    </xpath>
+                    
+                <xpath expr="//field[@name='function']" position="before">
+                    <field name="is_farmer" widget="boolean_toggle" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lang']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- <xpath expr="//field[@name='l10n_id_pkp']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='title']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@class='oe_chatter']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

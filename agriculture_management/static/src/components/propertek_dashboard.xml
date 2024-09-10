@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="agriculture_management.ChartRendererTemplate" owl="1">
+        <div>
+            <canvas t-ref="chart"></canvas>
+        </div>
+    </t>
+
+    <t t-name="agriculture_management.DashboardTemplate" owl="1">
+        <div class="vh-100 overflow-auto bg-muted">
+            <div class="bg-primary py-1">
+                <p class="text-center text-white fs-2 mb-0"><span>Agriculture Management Dashboard</span></p>
+            </div>
+            <div class="row m-3">
+                <div class="col-lg-6">            
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Harvest per Period</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <!-- Menggunakan state.harvestPerPeriod untuk grafik Harvest per Period -->
+                                <ChartRenderer type="'bar'" title="'Harvest per Period'" config="state.harvestPerPeriod"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">            
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Harvest per Season</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <!-- Menggunakan state.harvestPerSeason untuk grafik Harvest per Season -->
+                                <ChartRenderer type="'bar'" title="'Harvest per Season'" config="state.harvestPerProject"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Kanban View -->
+    <odoo>
+        <data>
+            <record id="view_project_kanban_inherit_agri" model="ir.ui.view">
+                <field name="name">project.project.kanban.inherit.agri</field>
+                <field name="model">project.project</field>
+                <field name="inherit_id" ref="project.view_project_kanban" />
+                <field name="arch" type="xml">
+                    <xpath expr="//kanban" position="attributes">
+                        <attribute name="action">action_view_detail_project</attribute>
+                    </xpath>
+                    <xpath expr="//kanban" position="inside">
+                        <field name="is_agriculture" />
+                    </xpath>
+                    <xpath expr="//field[@name='tag_ids']" position="after">
+                        <field name="state" options="{'color_field': 'color'}" />
+                        <field name="crop_id" options="{'color_field': 'color'}" />
+                    </xpath>
+                </field>
+            </record>
+        </data>
+    </odoo>
+
+    <record id="view_agri_farm_form" model="ir.ui.view">
+        <field name="name">project.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before"> 
+                <widget name="web_ribbon" title="Selesai" bg_color="bg-primary" invisible="state != 'season_end'"/>
+                <widget name="web_ribbon" title="Berjalan" bg_color="bg-success" invisible="state != 'season_progress'"/>
+                <widget name="web_ribbon" title="Draf" bg_color="bg-info" invisible="state != 'season_start'"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_tasks' and @type='object']" position="before">
+                <!-- <button class="oe_stat_button" type="object" name="action_view_seeds" icon="fa-leaf">
+                    <field string="Seeds" name="total_seed_price_str"
+                        options="{'currency_field': 'currency_id'}" widget="statinfo" />
+                </button> -->
+                <button class="oe_stat_button" type="object" name="action_view_healty_manure" icon="fa-leaf">
+                    <field string="Bibit" name="total_seed_expense_str"
+                        options="{'currency_field': 'currency_id'}" widget="statinfo" />
+                </button>
+            </xpath>
+            <!-- <xpath expr="//button[@class='oe_stat_button' and @name='action_view_tasks']" position="attributes">
+                <attribute name="invisible">state != 'season_progress'</attribute>
+            </xpath> -->
+            <!-- <xpath expr="//button[@string='Share Read-only']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@string='Share Editable']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+            <xpath expr="//form/header" position="inside">
+                <button name="start_agriculture" type="object" string="Mulai Pertanian" invisible="state != 'season_start'" class="btn btn-success" />
+                <button name="agricultural_cycle_begins" type="object" string="Mulai Siklus Pertanian" invisible="state != 'season_end' or crop_type != 'seasonal_plants'" class="btn btn-info" />
+            </xpath>
+
+            <xpath expr="//header/button[1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Menargetkan tombol kedua berdasarkan posisi -->
+            <xpath expr="//header/button[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//div[@class='oe_chatter']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='label_tasks']" position="before">
+                <field name="farm_id" />
+            </xpath>
+            <xpath expr="//field[@name='label_tasks']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='settings']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@class='oe_stat_button' and @icon='fa-users']" position="attributes">
+                <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="crop_id" widget="many2many_tags" options="{'color_field': 'color'}" readonly="state != 'season_start'"/>
+                <field name="seed_id" />
+                <field name="seed_quantity" />
+                <field name="current_seed_quantity" invisible="1" />
+                <field name="total_harvest_quantity" invisible="1"/>
+                <field name="current_price" invisible="1"/>
+
+                <field name="is_agriculture" widget="boolean_toggle" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="curent_stage_id" invisible="1"/>
+                <field name="crop_type"/>
+            </xpath>
+            <xpath expr="//page[@name='description']" position="after">
+                <page name="season_crop" string="Season Crop" context="{'default_crop_id': active_id}" invisible="state != 'season_end'">
+                    <field name="harvest_ids" context="{'default_project_id': active_id, 'default_crop_id': crop_id}">
+                        <tree string="Hasil ">  
+                            <field name="date"/>
+                            <field name="periode_pan"/>
+                            <field name="crop_id"/>
+                            <field name="quantity"/>
+                            <field name="unit_id"/>
+                            <field name="quality"/>
+                        </tree>
+                        <form string="">
+                            <sheet>
+                                <group>
+                                    <field name="date"/>
+                                    <field name="crop_id" readonly="1"/>
+                                    <field name="project_id" invisible="1"/>
+                                    <field name="periode_pan"/>
+                                </group>
+                                <group>
+                                    <field name="quantity"/>
+                                    <field name="unit_id"/>
+                                    <field name="quality"/>
+                                </group>
+                                <group>
+                                    <field name="notes"/>
+                                    <field name="photo" widget="image"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+                <page string="Post Harvest" invisible="state != 'season_end'">
+                    <field name="harvest_ids">
+                        <tree>
+                            <field name="quantity"/>
+                            <field name="unit_id"/>
+                            <field name="packaging_name"/>
+                            <field name="packaging_price_per_unit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="used_quantity" />
+                            <field name="total_packaging_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="quantity" readonly="1"/>
+                                    <field name="unit_id" readonly="1"/>
+                                    <field name="packaging_name"/>
+                                    <field name="packaging_size"/>
+                                    <field name="packaging_price_per_unit"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="currency_id" invisible="1" />
+                                    <field name="desired_num_packages" />
+                                    <field name="used_quantity" />
+                                    <field name="total_packaging_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+                <page name="agriculture_task" string="Agriculture Task" invisible="state != 'season_progress'">
+                    <field name="task_ids" readonly="1" domain="[('stage_id', '=', curent_stage_id)]">
+                        <tree string="Agriculture Task" >
+                            <field name="priority" widget="priority"/>
+                            <field name="name"/>
+                            <field name="stage_id"/>
+                            <field name="user_ids" widget="many2many_avatar_user"/>
+                            <field name="state"/>
+                            <button name="action_done" type="object" class="btn btn-success" string="Done" icon="fa-check"/>
+                            <button name="action_cancel" class="btn btn-danger" type="object" string="Cancel" icon="fa-times"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="season_crop_diseases" string="Season Crop Diseases" invisible="1">
+                    <field name="season_crop_diseases_id" context="{'default_crop_id': crop_id}">
+                        <tree string="Season Crop Diseases">
+                            <field name="name" />
+                            <field name="crop_id" />
+                            <field name="damage_total" />
+                            <field name="evidence_photo" readonly="1"/>
+                            <field name="handled" widget="boolean_toggle" readonly="1"/>
+                            <field name="healty_manure_id" invisible="handled != True"/>
+                            <button name="action_open_wizard" type="object" string="Tangani" class="oe_highlight btn btn-primary" invisible="handled != False"/>
+                        </tree>
+                        <form string="Season Crop Diseases" edit="false">
+                            <sheet>
+                                <group>
+                                    <field name="name" invisible="1"/>
+                                    <field name="disease_id"/>
+                                    <field name="crop_id" invisible="1"/>
+                                    <field name="damage_total"/>
+                                    <field name="evidence_photo"/>
+                                    <field name="handled" widget="boolean_toggle" readonly="1"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//notebook" position="after">
+                <div class="row">
+                    <!-- <div class="col-md-6">
+                        <field name="total_seed_price_str" />
+                    </div> -->
+                    <!-- <div class="col-md-6">
+                        <div style="text-align: right; margin-top: 20px;">
+                            <span>Total Expenses</span>
+                            <hr />
+                        </div>
+                        <table border="0" width="100%">
+                            <tr>
+                                <td style="text-align: right;">
+                                    <b>Seeds Expenses</b>
+                                </td>
+                                <td>:</td>
+                                <td style="text-align: right; ">
+                                    <span>
+                                        <field name="total_seed_expense_str"/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <b>Healty Manure Expenses</b>
+                                </td>
+                                <td>:</td>
+                                <td style="text-align: right;">
+                                    <span>
+                                        <field name="total_healty_manure_price_str"/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <b>Pesticide Expenses</b>
+                                </td>
+                                <td>:</td>
+                                <td style="text-align: right; ">
+                                    <field name="total_pesticide_price" readonly="1"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div> -->
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

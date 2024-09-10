@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_proper_client_task_template_search" model="ir.ui.view">
+        <field name="name">agri.task.template.search</field>
+        <field name="model">agri.task.template</field>
+        <field name="arch" type="xml">
+            <search string="Task Template">
+                <field name="name" />
+                <field name="stage_id" />
+                <filter string="Stage" name="group_by_stage" context="{'group_by':'stage_id'}" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_task_template_form" model="ir.ui.view">
+        <field name="name">agri.task.template.form</field>
+        <field name="model">agri.task.template</field>
+        <field name="arch" type="xml">
+            <form string="Task Template">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="crop_id" />
+                        <field name="stage_id" domain="[('crop_id', '=', crop_id)]"/>
+                        <field name="is_optional" widget="boolean_toggle" />
+                        <field name="target_days_completed" />
+                    </group>
+                    <notebook>
+                        <page string="Note">
+                            <field name="notes" widget="html" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_task_template_tree" model="ir.ui.view">
+        <field name="name">agri.task.template.tree</field>
+        <field name="model">agri.task.template</field>
+        <field name="arch" type="xml">
+            <tree string="Task Templates">
+                <field name="name" />
+                <field name="crop_id" />
+                <field name="stage_id" />
+                <field name="is_optional" />
+                <field name="state" widget="badge"
+                    decoration-info="state == '01_draft'"
+                    decoration-primary="state == '02_scheduled'"
+                    decoration-warning="state == '03_in_progress'"
+                    decoration-muted="state == '04_on_hold'"
+                    decoration-success="state == '05_completed'"
+                    decoration-danger="state == '06_cancelled'" />
+            </tree>
+        </field>
+    </record>
+</odoo>

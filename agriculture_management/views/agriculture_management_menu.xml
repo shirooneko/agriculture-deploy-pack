@@ -1,0 +1,199 @@
+<odoo>
+    <record id="action_agri_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">agriculture_management.dashboard_action</field>
+    </record>
+
+    <record id="action_sales_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard Penjualan</field>
+        <field name="tag">agriculture_management.sales_dashboard_action</field>
+    </record>
+
+    <record id="action_farm_type" model="ir.actions.act_window">
+        <field name="name">Tipe Pertanian</field>
+        <field name="res_model">farm.type</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_farm_type_tree" />
+    </record>
+
+    <record id="action_equipment_tag" model="ir.actions.act_window">
+        <field name="name">Equipment Tags</field>
+        <field name="res_model">equipment.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_equipment_tag_tree" />
+    </record>
+
+    <record id="action_crops" model="ir.actions.act_window">
+        <field name="name">Tanaman</field>
+        <field name="res_model">agri.crop</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_crop_kanban" />
+    </record>
+
+    <record id="action_crops_disease" model="ir.actions.act_window">
+        <field name="name">Crop Diseases</field>
+        <field name="res_model">agri.crop.disease</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_crop_disease_kanban" />
+    </record>
+
+    <record id="action_crops_health_manure" model="ir.actions.act_window">
+        <field name="name">Crop Health Manure</field>
+        <field name="res_model">agri.crop.healty.manure</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_crop_health_manure_kanban" />
+    </record>
+
+    <record id="action_crop_pesticides_herb" model="ir.actions.act_window">
+        <field name="name">Pestisida Tanaman</field>
+        <field name="res_model">agri.crop.pesticides.herb</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_crop_pesticides_herb_kanban" />
+    </record>
+
+    <record id="action_agri_crop_seeds" model="ir.actions.act_window">
+        <field name="name">Bibit Tanaman</field>
+        <field name="res_model">agri.crop.seeds</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_crop_seeds_kanban" />
+    </record>
+
+    <record id="action_farmers" model="ir.actions.act_window">
+        <field name="name">Petani</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_res_partner_kanban" />
+        <field name="domain">[('is_farmer', '=', True)]</field>
+    </record>
+
+    <record id="action_agri_lands_farm" model="ir.actions.act_window">
+        <field name="name">Pertanian</field>
+        <field name="res_model">agri.lands.farm</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_agri_lands_farm_kanban" />
+    </record>
+
+    <record id="action_agri_tasks_stage2" model="ir.actions.act_window">
+        <field name="name">Agriculture Task Stage</field>
+        <field name="res_model">project.task.type</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('project_ids.is_agriculture', '=', True)]</field>
+        <field name="view_id" ref="view_agri_tasks_stage_tree" />
+    </record>
+
+    <record id="action_agri_tags" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">project.tags</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_seasson_farms" model="ir.actions.act_window">
+        <field name="name">Seasson Farms</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('is_agriculture', '=', True)]</field>
+        <field name="view_id" ref="view_project_kanban_inherit_agri" />
+    </record>
+
+    <record id="action_production" model="ir.actions.act_window">
+        <field name="name">Inventoi</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <!-- <field name="view_id" ref="product_template_kanban_view_inherit" /> -->
+    </record>
+
+    <record id="action_sales_order" model="ir.actions.act_window">
+        <field name="name">Penjualan</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="action_website_home" model="ir.actions.act_url">
+        <field name="name">Website Homepage</field>
+        <field name="url">/</field>
+        <field name="target">self</field>
+    </record>
+
+    <menuitem id="main_agriculture_management_menu" name="Agriculture Management" sequence="1" web_icon="Agriculture Management,static/description/icon.png"/>
+
+    <menuitem id="LMarket_agriculture_management_menu" name="Dashboard"
+        parent="main_agriculture_management_menu"
+        action="action_agri_dashboard" sequence="20" />
+
+    <!-- LANDS/FARM -->
+    <menuitem id="agriculture_management_lands_farm_menu_config" name="Pertanian"
+        parent="main_agriculture_management_menu" sequence="30"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_lands_farm_menu" name="Pertanian"
+        parent="agriculture_management_lands_farm_menu_config" action="action_agri_lands_farm"
+        sequence="40" groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_farmers_menu" name="Petani"
+        parent="agriculture_management_lands_farm_menu_config" action="action_farmers" sequence="50"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_seasson_farms_menu" name="Musim Tanam"
+        parent="agriculture_management_lands_farm_menu_config" action="action_seasson_farms"
+        sequence="60" groups="agriculture_management.group_admin_pertanian" />
+
+    <!-- CROPS -->
+    <menuitem id="agriculture_management_crops_menu_config" name="Tanaman"
+        parent="main_agriculture_management_menu" sequence="70"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_crops_menu" name="Tanaman"
+        parent="agriculture_management_crops_menu_config" action="action_crops" sequence="80"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_crop_seeds_menu" name="Bibit"
+        parent="agriculture_management_crops_menu_config" action="action_agri_crop_seeds"
+        sequence="120" groups="agriculture_management.group_admin_pertanian" />
+
+    <!-- POST-HARVEST -->
+    <menuitem
+        id="agriculture_management_post_harvest_menu_config"
+        name="Pasca Panen"
+        parent="main_agriculture_management_menu"
+        sequence="70" />
+    <menuitem
+        id="agriculture_management_product_menu"
+        name="Produk"
+        parent="agriculture_management_post_harvest_menu_config"
+        action="action_production"
+        sequence="80" />
+    <menuitem
+        id="agriculture_management_website_menu"
+        name="Website"
+        parent="agriculture_management_post_harvest_menu_config"
+        action="action_website_home"
+        sequence="90" />
+    <menuitem
+        id="agriculture_management_sale_menu"
+        name="Penjualan"
+        parent="agriculture_management_post_harvest_menu_config"
+        action="action_sales_order"
+        sequence="100" />
+    <menuitem id="agriculture_management_sales_dashboard" name="Dashboard Penjualan"
+        parent="agriculture_management_post_harvest_menu_config"
+        action="action_sales_dashboard" sequence="20" />
+    
+
+
+    <!-- CONFIGURATION -->
+    <menuitem id="agriculture_management_configuration_menu_config" name="Konfigurasi"
+        parent="main_agriculture_management_menu" sequence="130"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_farm_menu" name="Pertanian"
+        parent="agriculture_management_configuration_menu_config" sequence="140"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_farm_type_menu" name="Tipe Pertanian"
+        parent="agriculture_management_farm_menu" action="action_farm_type" sequence="150"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_equipment_menu" name="Perlengkapan"
+        parent="agriculture_management_configuration_menu_config" sequence="160"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_equipment_tags_menu" name="Alat"
+        parent="agriculture_management_equipment_menu" action="action_equipment_tag" sequence="170"
+        groups="agriculture_management.group_admin_pertanian" />
+    <menuitem id="agriculture_management_task_stage_menu" name="Agriculture"
+        parent="agriculture_management_configuration_menu_config" sequence="160"
+        groups="agriculture_management.group_admin_pertanian" />
+
+</odoo>

@@ -1,0 +1,102 @@
+<odoo>
+    <record id="view_crop_form" model="ir.ui.view">
+        <field name="name">crop.form</field>
+        <field name="model">agri.crop</field>
+        <field name="arch" type="xml">
+            <form string="Crop">
+                <sheet>
+                    <!-- Tombol Stage dan Task -->
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_open_stages"
+                            icon="fa-flag">
+                            <field string="Stages" name="stage_count" widget="statinfo" />
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_open_tasks"
+                            icon="fa-tasks">
+                            <field string="Tasks" name="task_template_count" widget="statinfo" />
+                        </button>
+                    </div>
+
+                    <div>
+                        <field name="image_1920" widget="image" class="oe_avatar" />
+                    </div>
+
+                    <div class="mb-5">
+                        <div class="o_form_label">Nama Tanaman</div>
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Crop Details</span>
+                            <hr />
+                            <group>
+                                <field name="crop_type" widget="selection_badge" />
+                            </group>
+                        </div>
+
+                        <div class="col-md-6">
+                            <group>
+                                <field name="color" widget="color_picker" invisible="1" />
+                            </group>
+                        </div>
+
+                        <div>
+                            <group>
+                                <field name="product_template_id"/>
+                            </group>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_crop_kanban" model="ir.ui.view">
+        <field name="name">crop.kanban</field>
+        <field name="model">agri.crop</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <div class="o_kanban_image_fill_left d-none d-md-block o_kanban_image_full">
+                                <img t-att-src="kanban_image('agri.crop', 'image_1920', record.id.raw_value)" 
+                                    role="img" t-att-alt="record.id.value" style="object-fit: cover;"/>
+                            </div>
+                            <div class="o_kanban_image d-md-none d-block o_kanban_image_full">
+                                <img t-att-src="kanban_image('agri.crop', 'image_1920', record.id.raw_value)" 
+                                    role="img" t-att-alt="record.id.value" style="object-fit: cover;"/>
+                            </div>
+                            <div class="oe_kanban_details d-flex flex-column justify-content-between">
+                                <div>
+                                    <strong class="o_kanban_record_title oe_partner_heading">
+                                        <field name="name"/>
+                                    </strong>
+                                    <br />
+                                    <field name="crop_type"/>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="view_crop_tree" model="ir.ui.view">
+        <field name="name">crop.tree</field>
+        <field name="model">agri.crop</field>
+        <field name="arch" type="xml">
+            <tree string="Crop">
+                <field name="name" />
+                <field name="crop_type" />
+            </tree>
+        </field>
+    </record>
+</odoo>

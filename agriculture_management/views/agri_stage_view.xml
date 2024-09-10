@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_agri_stage_form" model="ir.ui.view">
+        <field name="name">agri.stage.form</field>
+        <field name="model">agri.stage</field>
+        <field name="arch" type="xml">
+            <form string="Agricultural Stage">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="crop_id" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Task">
+                            <field name="task_template_id" create="1"
+                                context="{'default_crop_id': crop_id}">
+                                <tree string="Task Templates">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name" />
+                                    <field name="is_optional" />
+                                    <field name="target_days_completed" />
+                                </tree>
+                                <form string="Task Templates">
+                                    <group>
+                                        <field name="name" />
+                                        <field name="crop_id"/>
+                                        <field name="is_optional" />
+                                        <field name="sequence" invisible="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_agri_stage_tree" model="ir.ui.view">
+        <field name="name">agri.stage.tree</field>
+        <field name="model">agri.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Agricultural Stages">
+                <field name="name" />
+                <field name="crop_id" />
+                <field name="project_id" />
+            </tree>
+        </field>
+    </record>
+</odoo>

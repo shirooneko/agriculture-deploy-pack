@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_season_crop_disease_wizard_form" model="ir.ui.view">
+        <field name="name">season.crop.disease.wizard.form</field>
+        <field name="model">season.crop.disease.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Wizard untuk Menangani Penyakit Tanaman">
+                <group>
+                    <field name="name"/>
+                    <field name="healty_manure_id"/>
+                    <field name="project_ids" readonly="1"/>
+                    <field name="season_crop_diseases_id" readonly="1"/>
+                </group>
+                <footer>
+                    <button string="Tangani Penyakit" type="object" class="btn btn-primary" name="action_to_handle"/>
+                    <button string="Batal" class="btn btn-danger" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

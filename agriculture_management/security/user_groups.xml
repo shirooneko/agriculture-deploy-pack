@@ -1,0 +1,12 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Grup Pengguna Admin Pertanian -->
+        <record id="group_admin_pertanian" model="res.groups">
+            <field name="name">Admin Pertanian</field>
+        </record>
+
+        <record id="group_admin_penjualan" model="res.groups">
+            <field name="name">Admin Penjualan</field>
+        </record>
+    </data>
+</odoo>

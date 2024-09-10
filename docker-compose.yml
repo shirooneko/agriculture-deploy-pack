@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres15-container
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    environment:
+      - POSTGRES_USER=odootest1
+      - POSTGRES_PASSWORD=odootest1
+      - POSTGRES_DB=odootest1
+    networks:
+      - odoo-network
+
+  odoo:
+    image: odoo:17.0
+    container_name: odoo17-container
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./odoo.conf:/etc/odoo/odoo.conf
+    command: >
+      sh -c "
+        echo 'menghentikan container odoo'
+        docker stop odoo17-container || true;
+        sleep 20;
+        echo 'menyalakan container odoo'
+        docker restart odoo17-container || true;
+        echo 'Menjalankan perintah inisialisasi database Odoo...';
+        odoo -d odootest1 -i all --stop-after-init || true;
+        echo 'Inisialisasi selesai!';
+        exec odoo"
+    environment:
+      - HOST=db
+      - PORT=5432
+      - USER=odootest1
+      - PASSWORD=odootest1
+      - DATABASE=odootest1
+      - DATABASE_NO_DEMO=True
+    depends_on:
+      - db
+    networks:
+      - odoo-network
+
+networks:
+  odoo-network:
+
+volumes:
+  odoo-data:
+  postgres-data:

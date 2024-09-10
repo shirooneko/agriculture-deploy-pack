@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="view_agri_tasks_stage_search" model="ir.ui.view">
+        <field name="name">project.task.type.agri.search</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Farming Season" name="group_by_project_ids"
+                    context="{'group_by': 'project_ids'}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_agri_tasks_stage_tree" model="ir.ui.view">
+        <field name="name">project.task.type.kanban.agri</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_tree_inherited" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree[@default_group_by='project_ids']" position="attributes">
+                <attribute name="default_group_by" delete="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_agri_tasks_stage_kanban" model="ir.ui.view">
+        <field name="name">project.task.type.kanban.agri.custom</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.view_project_task_type_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//kanban[@default_group_by='project_ids']" position="attributes">
+                <attribute name="default_group_by" delete="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_agri_tasks_stage_form" model="ir.ui.view">
+        <field name="name">project.task.type.form</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_ids']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//group" position="after">
+                <notebook>
+                    <page string="Page Title">
+                        <field name="task_ids"/>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
