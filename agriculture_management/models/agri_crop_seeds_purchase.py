@@ -10,7 +10,7 @@ class CropSeedPurchase(models.Model):
     purchase_date = fields.Date(string='Tanggal Pembelian', required=True, default=fields.Date.today())
     quantity = fields.Float(string='Kuantitas', required=True, digits=(16, 0)  )
     price_per_unit = fields.Float(string='Harga per Kg', required=True, digits=(16, 0))
-    uom_id = fields.Many2one('uom.uom', string='Satuan', required=True,)
+    uom_id = fields.Many2one('uom.uom', string='Satuan', required=True, domain=[('category_id.name', '=', 'Berat')])
     total_price = fields.Monetary(string='Total Harga', compute='_compute_total_price', store=True, digits=(16, 0))
     currency_id = fields.Many2one('res.currency', string='Mata Uang', required=True, default=lambda self: self.env['res.currency'].search([('name', '=', 'IDR')], limit=1))
 

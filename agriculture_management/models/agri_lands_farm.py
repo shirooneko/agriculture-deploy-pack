@@ -12,7 +12,7 @@ class Farm(models.Model):
     zip = fields.Char()
     country_id = fields.Many2one('res.country')
     coordinate = fields.Char(string='Coordinate', required=True, help='Google Maps coordinates in format: latitude,longitude')
-    farmer_id = fields.Many2many('res.partner', string='Farmer', domain=[('is_farmer', '=', True)])
+    farmer_id = fields.Many2one('res.partner', string='Farmer', domain=[('is_farmer', '=', True)])
     image_1920 = fields.Binary(string='Image')
     image_1920_fname = fields.Char()
     farm_type = fields.Many2one('farm.type', string='Farm Type')

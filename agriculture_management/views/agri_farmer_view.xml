@@ -38,10 +38,7 @@
                     <xpath expr="//button[@class='oe_stat_button' and @icon='fa-credit-card']" position="attributes">
                         <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
                     </xpath>
-                    <xpath expr="//button[@class='oe_stat_button' and @name='action_view_partner_invoices']" position="attributes">
-                        <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
-                    </xpath>
-                    <xpath expr="//button[@class='oe_stat_button' and @name='684']" position="attributes">
+                    <xpath expr="//button[@class='oe_stat_button' and @icon='fa-pencil-square-o']" position="attributes">
                         <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
                     </xpath>
                     <xpath expr="//button[@class='oe_stat_button' and @icon='fa-truck']" position="attributes">

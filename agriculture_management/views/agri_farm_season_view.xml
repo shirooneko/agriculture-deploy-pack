@@ -84,18 +84,12 @@
             <xpath expr="//page[@name='settings']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='user_id']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//button[@class='oe_stat_button' and @icon='fa-users']" position="attributes">
-                <attribute name="invisible">1</attribute> <!-- Kondisi untuk menyembunyikan tombol -->
-            </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="crop_id" widget="many2many_tags" options="{'color_field': 'color'}" readonly="state != 'season_start'"/>
                 <field name="seed_id" />
                 <field name="seed_quantity" />
                 <field name="current_seed_quantity" invisible="1" />
-                <field name="total_harvest_quantity" invisible="1"/>
+                <field name="total_harvest_quantity" />
                 <field name="current_price" invisible="1"/>
 
                 <field name="is_agriculture" widget="boolean_toggle" invisible="1"/>

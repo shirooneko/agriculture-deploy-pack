@@ -24,6 +24,7 @@
         'views/agri_stage_view.xml',
         'views/agri_task_template_view.xml',
         'views/agri_crop_seeds_view.xml',
+        # 'views/product_view.xml',
         # 'views/crop_incidents_view.xml',
         # 'views/incidents_type_view.xml',
         # 'views/incident_view.xml',
